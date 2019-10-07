@@ -6,6 +6,8 @@ import { Product } from '../product';
 import { ProductService } from '../product.service';
 import { Store, select } from '@ngrx/store';
 import { TOGGLE_PRODUCT_CODE } from '../state/products.constants';
+import * as fromProduct from '../state/products.reducer';
+import * as productActions from '../state/products.actions';
 
 @Component({
   selector: 'pm-product-list',
@@ -24,7 +26,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   selectedProduct: Product | null;
   sub: Subscription;
 
-  constructor(private store: Store<any>, private productService: ProductService) { }
+  constructor(private store: Store<fromProduct.State>, private productService: ProductService) { }
 
   ngOnInit(): void {
     this.sub = this.productService.selectedProductChanges$.subscribe(
@@ -36,12 +38,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
       error: (err: any) => this.errorMessage = err.error
     });
 
-    this.store.pipe(select('products'))
-      .subscribe(products => {
-        if (products) {
-          this.displayCode = products.showProductCode;
-        }
-      });
+    this.store.pipe(select(fromProduct.getShowProductCode))
+      .subscribe(showProductCode => this.displayCode = showProductCode);
   }
 
   ngOnDestroy(): void {
@@ -49,11 +47,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   checkChanged(value: boolean): void {
-    this.store.dispatch({
-      type: TOGGLE_PRODUCT_CODE,
-      payload: value
-    });
-    // this.displayCode = value;
+    this.store.dispatch(new productActions.ToggleProductCode(value));
   }
 
   newProduct(): void {
