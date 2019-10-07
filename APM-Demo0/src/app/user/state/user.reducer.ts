@@ -1,6 +1,7 @@
 import { MASK_USER_CREDENTIALS } from './user.constants';
 import { User } from '../../../../../APM-Demo4/src/app/user/user';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { UserActions } from './user.actions';
 
 
 export interface UserState {
@@ -24,7 +25,7 @@ export const getCurrentProduct = createSelector(
   state => state.currentUser
 );
 
-export const userReducer = (state = initialState, action): UserState => {
+export const userReducer = (state = initialState, action: UserActions): UserState => {
   switch (action.type) {
     case MASK_USER_CREDENTIALS:
       return {

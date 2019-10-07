@@ -1,6 +1,14 @@
 import { Action } from '@ngrx/store';
-import { TOGGLE_PRODUCT_CODE, SET_CURRENT_PRODUCT, CLEAR_CURRENT_PRODUCT, INITIALIZE_CURRENT_PRODUCT } from './products.constants';
-import { Product } from '../../../../../APM-Demo4/src/app/products/product';
+import {
+  TOGGLE_PRODUCT_CODE,
+  SET_CURRENT_PRODUCT,
+  CLEAR_CURRENT_PRODUCT,
+  INITIALIZE_CURRENT_PRODUCT,
+  LOAD_PRODUCT,
+  LOAD_PRODUCT_SUCCES,
+  LOAD_PRODUCT_FAIL
+} from './products.constants';
+import { Product } from '../product';
 
 export class ToggleProductCode implements Action {
   readonly type = TOGGLE_PRODUCT_CODE;
@@ -20,7 +28,22 @@ export class InitializeCurrentProduct implements Action {
   readonly type = INITIALIZE_CURRENT_PRODUCT;
 }
 
+export class LoadProduct implements Action {
+  readonly type = LOAD_PRODUCT;
+}
+export class LoadProductSucces implements Action {
+  readonly type = LOAD_PRODUCT_SUCCES;
+  constructor(public payload: Product[]) { }
+}
+export class LoadProductFail implements Action {
+  readonly type = LOAD_PRODUCT_FAIL;
+  constructor(public payload: string) { }
+}
+
 export type ProductActions = ToggleProductCode
   | SetCurrentProduct
   | ClearCurrentProduct
-  | InitializeCurrentProduct;
+  | InitializeCurrentProduct
+  | LoadProduct
+  | LoadProductSucces
+  | LoadProductFail;
