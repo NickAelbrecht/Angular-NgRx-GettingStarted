@@ -1,7 +1,7 @@
 import { MASK_USER_CREDENTIALS } from './user.constants';
-import { User } from '../../../../../APM-Demo4/src/app/user/user';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { UserActions } from './user.actions';
+import { User } from '../user';
 
 
 export interface UserState {

@@ -1,8 +1,8 @@
 import { TOGGLE_PRODUCT_CODE, SET_CURRENT_PRODUCT, CLEAR_CURRENT_PRODUCT, INITIALIZE_CURRENT_PRODUCT } from './products.constants';
-import { Product } from '../../../../../APM-Demo4/src/app/products/product';
 import * as fromRoot from '../../state/app.state';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { ProductActions } from './products.actions';
+import { Product } from '../product';
 export interface ProductState {
   showProductCode: boolean;
   currentProduct: Product;
